@@ -36,6 +36,8 @@ protected:
 	
 // Interactable interface
 public:
+	virtual void EnableInteraction() override;
+	virtual void DisableInteraction() override;
 	virtual bool CanInteract() const override;
 	virtual void ShowInteractWidget() override;
 	virtual void HideInteractWidget() override;
@@ -58,5 +60,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, NoClear)
 	TObjectPtr<USphereComponent> TriggerVolume;
-
+	
+	UPROPERTY(Transient)
+	bool bInteractionEnabled = true;
 };

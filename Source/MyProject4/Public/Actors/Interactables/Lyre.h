@@ -23,7 +23,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void Interaction();
+	void Interaction(AActor*);
 
 public:	
 	// Called every frame
@@ -31,6 +31,8 @@ public:
 
 // Interactable interface
 public:
+	virtual void EnableInteraction() override;
+	virtual void DisableInteraction() override;
 	virtual bool CanInteract() const override;
 	virtual void StartInteraction(AActor* InteractionInstigator) override;
 	virtual void EndInteraction(AActor* InteractionInstigator) override;

@@ -78,9 +78,19 @@ void AInteractableBase::OnLeaveTriggerVolume(UPrimitiveComponent* OverlappedComp
 	}
 }
 
+void AInteractableBase::EnableInteraction()
+{
+	bInteractionEnabled = true;
+}
+
+void AInteractableBase::DisableInteraction()
+{
+	bInteractionEnabled = false;
+}
+
 bool AInteractableBase::CanInteract() const
 {
-	return true;
+	return bInteractionEnabled;
 }
 
 void AInteractableBase::ShowInteractWidget()

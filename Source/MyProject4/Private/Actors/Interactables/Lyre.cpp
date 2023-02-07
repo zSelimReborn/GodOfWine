@@ -19,7 +19,7 @@ void ALyre::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ALyre::Interaction()
+void ALyre::Interaction(AActor* InstigatorActor)
 {
 	if (!CanInteract())
 	{
@@ -41,7 +41,8 @@ void ALyre::Interaction()
 		bHasBeenPlayed = true;
 		HideInteractWidget();
 	}
-	
+
+	OnInteractionSuccess.Broadcast(this, InstigatorActor);
 	OnInteraction();
 }
 
@@ -52,14 +53,26 @@ void ALyre::Tick(float DeltaTime)
 
 }
 
+void ALyre::EnableInteraction()
+{
+	Super::EnableInteraction();
+	bHasBeenPlayed = false;
+}
+
+void ALyre::DisableInteraction()
+{
+	Super::DisableInteraction();
+	bHasBeenPlayed = false;
+}
+
 bool ALyre::CanInteract() const
 {
-	return !bHasBeenPlayed;
+	return !bHasBeenPlayed && Super::CanInteract();
 }
 
 void ALyre::StartInteraction(AActor* InteractionInstigator)
 {
-	Interaction();
+	Interaction(InteractionInstigator);
 }
 
 void ALyre::EndInteraction(AActor* InteractionInstigator)

@@ -36,6 +36,8 @@ void ALattice::Interaction(AActor* InteractionInstigator)
 		{
 			HideInteractWidget();
 		}
+
+		OnInteractionSuccess.Broadcast(this, InteractionInstigator);
 	}
 }
 
@@ -48,7 +50,7 @@ void ALattice::Tick(float DeltaTime)
 
 bool ALattice::CanInteract() const
 {
-	return (CurrentGrapes > 0);
+	return (CurrentGrapes > 0) && Super::CanInteract();
 }
 
 void ALattice::StartInteraction(AActor* InteractionInstigator)
