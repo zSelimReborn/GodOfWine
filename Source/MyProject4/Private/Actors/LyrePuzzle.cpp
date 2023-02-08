@@ -98,6 +98,7 @@ void ALyrePuzzle::HandleSuccess()
 void ALyrePuzzle::HandleFail()
 {
 	CurrentPuzzleIndex = 0;
+	SuccessInteractions = 0;
 	EnableAllInteractables();
 	ScheduleFailSound();
 	OnFailPuzzle();
