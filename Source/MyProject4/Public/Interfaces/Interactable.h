@@ -24,7 +24,6 @@ class MYPROJECT4_API IInteractable
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	// TODO EnableInteraction | DisableInteraction
 	virtual void EnableInteraction() = 0;
 	virtual void DisableInteraction() = 0;
 	virtual bool CanInteract() const = 0;

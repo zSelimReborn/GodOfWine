@@ -21,6 +21,7 @@ void ALyrePuzzle::BeginPlay()
 	Super::BeginPlay();
 
 	PrepareInteractables();
+	DisableAllInteractables();
 }
 
 void ALyrePuzzle::ScheduleSuccessSound()
@@ -90,6 +91,7 @@ void ALyrePuzzle::HandleSuccess()
 {
 	DisableAllInteractables();
 	ScheduleSuccessSound();
+	MarkAsCompleted();
 	OnSuccessPuzzle();
 }
 
@@ -130,6 +132,32 @@ void ALyrePuzzle::Interaction(AActor* InteractableActor, AActor* ActorInstigator
 			HandleFail();
 		}
 	}
+}
+
+FString ALyrePuzzle::GetObjectiveTitle() const
+{
+	return ObjectiveTitle;
+}
+
+FText ALyrePuzzle::GetObjectiveDescription() const
+{
+	return ObjectiveDescription;
+}
+
+void ALyrePuzzle::ActivateObjective()
+{
+	EnableAllInteractables();
+}
+
+bool ALyrePuzzle::IsObjectiveCompleted()
+{
+	return bIsCompleted;
+}
+
+void ALyrePuzzle::MarkAsCompleted()
+{
+	bIsCompleted = true;
+	OnObjectiveCompleted.Broadcast(this);
 }
 
 // Called every frame

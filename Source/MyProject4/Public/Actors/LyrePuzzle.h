@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interfaces/Objective.h"
 #include "LyrePuzzle.generated.h"
 
 class AInteractableBase;
 class USoundCue;
 
 UCLASS()
-class MYPROJECT4_API ALyrePuzzle : public AActor
+class MYPROJECT4_API ALyrePuzzle : public AActor, public IObjective
 {
 	GENERATED_BODY()
 	
@@ -36,6 +37,14 @@ protected:
 
 	UFUNCTION()
 	void Interaction(AActor* InteractableActor, AActor* ActorInstigator);
+
+// IObjective interface
+public:
+	virtual FString GetObjectiveTitle() const override;
+	virtual FText GetObjectiveDescription() const override;
+	virtual void ActivateObjective() override;
+	virtual bool IsObjectiveCompleted() override;
+	virtual void MarkAsCompleted() override;
 	
 public:	
 	// Called every frame
@@ -66,6 +75,15 @@ protected:
 	float PlaySoundAfterSeconds = 1.f;
 
 	FTimerHandle PuzzleFeedbackTimerHandle;
+
+	UPROPERTY(EditAnywhere, Category="Objective")
+	FString ObjectiveTitle;
+
+	UPROPERTY(EditAnywhere, Category="Objective")
+	FText ObjectiveDescription;
+
+	UPROPERTY(Transient)
+	bool bIsCompleted = false;
 
 	UPROPERTY(Transient)
 	int8 CurrentPuzzleIndex = 0;

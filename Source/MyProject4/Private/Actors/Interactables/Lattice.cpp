@@ -17,6 +17,13 @@ ALattice::ALattice()
 void ALattice::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (GrapesToComplete > MaxGrapes)
+	{
+		GrapesToComplete = MaxGrapes;
+	}
+	
+	DisableInteraction();
 }
 
 void ALattice::Interaction(AActor* InteractionInstigator)
@@ -38,6 +45,15 @@ void ALattice::Interaction(AActor* InteractionInstigator)
 		}
 
 		OnInteractionSuccess.Broadcast(this, InteractionInstigator);
+
+		if (!IsObjectiveCompleted())
+		{
+			if (Character->GetCollectedGrapes() >= GrapesToComplete)
+			{
+				MarkAsCompleted();
+				OnObjectiveCompleted.Broadcast(this);
+			}
+		}
 	}
 }
 
@@ -62,3 +78,27 @@ void ALattice::EndInteraction(AActor* InteractionInstigator)
 {
 }
 
+FString ALattice::GetObjectiveTitle() const
+{
+	return ObjectiveTitle;
+}
+
+FText ALattice::GetObjectiveDescription() const
+{
+	return ObjectiveDescription;
+}
+
+void ALattice::ActivateObjective()
+{
+	EnableInteraction();
+}
+
+bool ALattice::IsObjectiveCompleted()
+{
+	return bIsObjectiveCompleted;
+}
+
+void ALattice::MarkAsCompleted()
+{
+	bIsObjectiveCompleted = true;
+}
