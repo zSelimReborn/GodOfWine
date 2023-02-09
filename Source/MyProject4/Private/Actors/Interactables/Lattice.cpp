@@ -23,15 +23,6 @@ void ALattice::BeginPlay()
 	{
 		GrapesToComplete = MaxGrapes;
 	}
-
-	const UObjectiveSubsystem* ObjectiveSubsystem = GetWorld()->GetSubsystem<UObjectiveSubsystem>();
-	if (ObjectiveSubsystem)
-	{
-		if (ObjectiveSubsystem->IsAnObjectiveQueued(this))
-		{
-			DisableInteraction();
-		}
-	}
 }
 
 void ALattice::Interaction(AActor* InteractionInstigator)
@@ -99,6 +90,11 @@ FText ALattice::GetObjectiveDescription() const
 void ALattice::ActivateObjective()
 {
 	EnableInteraction();
+}
+
+void ALattice::DeactivateObjective()
+{
+	DisableInteraction();
 }
 
 bool ALattice::IsObjectiveCompleted()

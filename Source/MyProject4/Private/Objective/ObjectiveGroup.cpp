@@ -75,6 +75,14 @@ void AObjectiveGroup::ActivateObjective()
 	}
 }
 
+void AObjectiveGroup::DeactivateObjective()
+{
+	for (const TScriptInterface<IObjective> Objective : Objectives)
+	{
+		Objective->DeactivateObjective();
+	}
+}
+
 bool AObjectiveGroup::IsObjectiveCompleted()
 {
 	return bIsCompleted;

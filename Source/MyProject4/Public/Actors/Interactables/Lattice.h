@@ -40,6 +40,7 @@ public:
 	virtual FString GetObjectiveTitle() const override;
 	virtual FText GetObjectiveDescription() const override;
 	virtual void ActivateObjective() override;
+	virtual void DeactivateObjective() override;
 	virtual bool IsObjectiveCompleted() override;
 	virtual void MarkAsCompleted() override;
 

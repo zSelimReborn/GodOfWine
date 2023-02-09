@@ -21,7 +21,6 @@ void ALyrePuzzle::BeginPlay()
 	Super::BeginPlay();
 
 	PrepareInteractables();
-	DisableAllInteractables();
 }
 
 void ALyrePuzzle::ScheduleSuccessSound()
@@ -148,6 +147,11 @@ FText ALyrePuzzle::GetObjectiveDescription() const
 void ALyrePuzzle::ActivateObjective()
 {
 	EnableAllInteractables();
+}
+
+void ALyrePuzzle::DeactivateObjective()
+{
+	DisableAllInteractables();
 }
 
 bool ALyrePuzzle::IsObjectiveCompleted()

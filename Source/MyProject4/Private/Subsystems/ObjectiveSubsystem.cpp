@@ -67,6 +67,11 @@ void UObjectiveSubsystem::FireObjectivesCompletedEvent()
 
 void UObjectiveSubsystem::OnMapStart()
 {
+	for (const TScriptInterface<IObjective>& CurrentObjective : Objectives)
+	{
+		CurrentObjective->DeactivateObjective();
+	}
+	
 	ActivateCurrentObjective();
 }
 

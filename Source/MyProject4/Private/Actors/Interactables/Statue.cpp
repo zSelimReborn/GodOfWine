@@ -3,20 +3,9 @@
 
 #include "Actors/Interactables/Statue.h"
 
-#include "Subsystems/ObjectiveSubsystem.h"
-
 void AStatue::BeginPlay()
 {
 	Super::BeginPlay();
-
-	const UObjectiveSubsystem* ObjectiveSubsystem = GetWorld()->GetSubsystem<UObjectiveSubsystem>();
-	if (ObjectiveSubsystem)
-	{
-		if (ObjectiveSubsystem->IsAnObjectiveQueued(this))
-		{
-			DisableInteraction();
-		}
-	}
 }
 
 void AStatue::Interaction(AActor* InteractionInstigator)
@@ -61,6 +50,11 @@ FText AStatue::GetObjectiveDescription() const
 void AStatue::ActivateObjective()
 {
 	EnableInteraction();
+}
+
+void AStatue::DeactivateObjective()
+{
+	DisableInteraction();
 }
 
 bool AStatue::IsObjectiveCompleted()

@@ -27,6 +27,7 @@ public:
 	virtual FString GetObjectiveTitle() const = 0;
 	virtual FText GetObjectiveDescription() const = 0;
 	virtual void ActivateObjective() = 0;
+	virtual void DeactivateObjective() = 0;
 	virtual bool IsObjectiveCompleted() = 0;
 	virtual void MarkAsCompleted() = 0;
 
