@@ -7,8 +7,8 @@
 #include "ObjectiveSubsystem.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAllObjectivesCompleted);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnObjectiveActivated, AActor*, ObjectiveActivated);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnObjectiveCompleted, AActor*, ObjectiveCompleted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnObjectiveActivated, AActor*, ObjectiveActivated, const FString&, ObjectiveTitle, const FText&, ObjectiveDescription);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnObjectiveCompleted, AActor*, ObjectiveCompleted, const FString&, ObjectiveTitle, const FText&, ObjectiveDescription);
 
 class IObjective;
 
@@ -39,6 +39,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void OnMapStart();
+
+	bool IsAnObjectiveQueued(const AActor* ObjectiveActor) const;
 
 // Variables
 protected:

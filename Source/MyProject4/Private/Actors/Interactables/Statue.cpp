@@ -3,11 +3,20 @@
 
 #include "Actors/Interactables/Statue.h"
 
+#include "Subsystems/ObjectiveSubsystem.h"
+
 void AStatue::BeginPlay()
 {
 	Super::BeginPlay();
 
-	DisableInteraction();
+	const UObjectiveSubsystem* ObjectiveSubsystem = GetWorld()->GetSubsystem<UObjectiveSubsystem>();
+	if (ObjectiveSubsystem)
+	{
+		if (ObjectiveSubsystem->IsAnObjectiveQueued(this))
+		{
+			DisableInteraction();
+		}
+	}
 }
 
 void AStatue::Interaction(AActor* InteractionInstigator)

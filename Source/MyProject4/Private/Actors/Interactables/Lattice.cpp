@@ -5,6 +5,7 @@
 
 #include "Actors/Characters/SpartanBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Subsystems/ObjectiveSubsystem.h"
 
 // Sets default values
 ALattice::ALattice()
@@ -22,8 +23,15 @@ void ALattice::BeginPlay()
 	{
 		GrapesToComplete = MaxGrapes;
 	}
-	
-	DisableInteraction();
+
+	const UObjectiveSubsystem* ObjectiveSubsystem = GetWorld()->GetSubsystem<UObjectiveSubsystem>();
+	if (ObjectiveSubsystem)
+	{
+		if (ObjectiveSubsystem->IsAnObjectiveQueued(this))
+		{
+			DisableInteraction();
+		}
+	}
 }
 
 void ALattice::Interaction(AActor* InteractionInstigator)

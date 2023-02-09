@@ -8,7 +8,7 @@
 
 void UObjectiveSubsystem::ObjectiveCompleted(AActor* ObjectiveActor)
 {
-	OnObjectiveCompleted.Broadcast(ObjectiveActor);
+	OnObjectiveCompleted.Broadcast(ObjectiveActor, Objectives[CurrentObjectiveIndex]->GetObjectiveTitle(), Objectives[CurrentObjectiveIndex]->GetObjectiveDescription());
 
 	CurrentObjectiveIndex++;
 	ActivateCurrentObjective();
@@ -26,7 +26,7 @@ void UObjectiveSubsystem::ActivateCurrentObjective()
     	if (CurrentObjective)
     	{
     		Objectives[CurrentObjectiveIndex]->ActivateObjective();
-    		OnObjectiveActivated.Broadcast(CurrentObjective);
+    		OnObjectiveActivated.Broadcast(CurrentObjective, Objectives[CurrentObjectiveIndex]->GetObjectiveTitle(), Objectives[CurrentObjectiveIndex]->GetObjectiveDescription());
     	}
     }
 }
@@ -68,4 +68,17 @@ void UObjectiveSubsystem::FireObjectivesCompletedEvent()
 void UObjectiveSubsystem::OnMapStart()
 {
 	ActivateCurrentObjective();
+}
+
+bool UObjectiveSubsystem::IsAnObjectiveQueued(const AActor* ObjectiveActor) const
+{
+	for (const TScriptInterface<IObjective>& CurrentObjective : Objectives)
+	{
+		if (CurrentObjective.GetObject() == ObjectiveActor)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
