@@ -9,6 +9,7 @@
 
 class UWidgetComponent;
 class USphereComponent;
+class UInteractableWidget;
 
 UCLASS()
 class MYPROJECT4_API AInteractableBase : public AActor, public IInteractable
@@ -60,6 +61,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, NoClear)
 	TObjectPtr<USphereComponent> TriggerVolume;
+
+	UPROPERTY(EditAnywhere, Category="Interact")
+	FString InteractWidgetString;
+
+	UPROPERTY(Transient)
+	TObjectPtr<UInteractableWidget> InteractableWidgetRef;
 	
 	UPROPERTY(Transient)
 	bool bInteractionEnabled = true;

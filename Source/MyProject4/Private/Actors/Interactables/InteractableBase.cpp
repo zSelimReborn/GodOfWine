@@ -7,6 +7,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/InteractableWidget.h"
 
 // Sets default values
 AInteractableBase::AInteractableBase()
@@ -37,6 +38,15 @@ void AInteractableBase::BeginPlay()
 
 	PrepareTrigger();
 	HideInteractWidget();
+
+	if (InteractWidgetComponent)
+	{
+		UInteractableWidget* _InteractableWidget = Cast<UInteractableWidget>(InteractWidgetComponent->GetUserWidgetObject());
+		if (_InteractableWidget)
+		{
+			InteractableWidgetRef = _InteractableWidget;
+		}
+	}
 }
 
 void AInteractableBase::PrepareTrigger()
@@ -98,6 +108,10 @@ void AInteractableBase::ShowInteractWidget()
 	if (InteractWidgetComponent)
 	{
 		InteractWidgetComponent->SetVisibility(true);
+		if (InteractableWidgetRef)
+		{
+			InteractableWidgetRef->SetInteractText(InteractWidgetString);
+		}
 	}
 }
 
@@ -106,6 +120,10 @@ void AInteractableBase::HideInteractWidget()
 	if (InteractWidgetComponent)
 	{
 		InteractWidgetComponent->SetVisibility(false);
+		if (InteractableWidgetRef)
+		{
+			InteractableWidgetRef->ResetInteractText();
+		}
 	}
 }
 
