@@ -38,6 +38,8 @@ void AInteractableBase::BeginPlay()
 
 	PrepareTrigger();
 	HideInteractWidget();
+	// No highlight post process
+	DisableCustomDepth();
 
 	if (InteractWidgetComponent)
 	{
@@ -69,6 +71,7 @@ void AInteractableBase::OnEnterTriggerVolume(UPrimitiveComponent* OverlappedComp
 	ASpartanBase* Character = Cast<ASpartanBase>(OtherActor);
 	if (Character)
 	{
+		EnableCustomDepth();
 		Character->SetOverlappingInteractableObject(this);
 	}
 }
@@ -84,7 +87,24 @@ void AInteractableBase::OnLeaveTriggerVolume(UPrimitiveComponent* OverlappedComp
 	ASpartanBase* Character = Cast<ASpartanBase>(OtherActor);
 	if (Character)
 	{
+		DisableCustomDepth();
 		Character->ResetOverlappingInteractableObject(this);
+	}
+}
+
+void AInteractableBase::EnableCustomDepth()
+{
+	if (MeshComponent && CanInteract())
+	{
+		MeshComponent->SetRenderCustomDepth(true);
+	}
+}
+
+void AInteractableBase::DisableCustomDepth()
+{
+	if (MeshComponent)
+	{
+		MeshComponent->SetRenderCustomDepth(false);
 	}
 }
 

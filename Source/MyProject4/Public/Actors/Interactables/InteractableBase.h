@@ -34,6 +34,10 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnInteraction();
+
+	virtual void EnableCustomDepth();
+
+	virtual void DisableCustomDepth();
 	
 // Interactable interface
 public:
