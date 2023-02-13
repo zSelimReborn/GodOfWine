@@ -46,10 +46,13 @@ SourceArt/**/*.png
 SourceArt/**/*.tga
 
 # Binary Files
-Binaries
-!/Binaries/Win64/MyProject4Editor.target
-!/Binaries/Win64/UnrealEditor.modules
-!/Binaries/Win64/UnrealEditor-MyProject4.dll
+!Binaries/
+Binaries/*
+!Binaries/Win64/
+Binaries/Win64/*
+!Binaries/Win64/MyProject4Editor.target
+!Binaries/Win64/UnrealEditor.modules
+!Binaries/Win64/UnrealEditor-MyProject4.dll
 Plugins/*/Binaries/*
 
 # Builds
