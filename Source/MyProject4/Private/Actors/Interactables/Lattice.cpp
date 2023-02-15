@@ -43,6 +43,7 @@ void ALattice::Interaction(AActor* InteractionInstigator)
 			HideInteractWidget();
 		}
 
+		OnInteraction();
 		OnInteractionSuccess.Broadcast(this, InteractionInstigator);
 
 		if (!IsObjectiveCompleted())
