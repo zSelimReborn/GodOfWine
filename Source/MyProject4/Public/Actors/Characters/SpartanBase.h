@@ -9,6 +9,20 @@
 
 class AGrape;
 class UArrowComponent;
+class USpringArmComponent;
+class UCameraComponent;
+
+USTRUCT()
+struct FFocusActor
+{
+	GENERATED_BODY()
+
+	TObjectPtr<AActor> Actor = nullptr;
+	bool bIsActive = false;
+	float DesiredFOV = 100.f;
+	float TimeToFocus = 1.f;
+	float TotalFocusTime = 5.f;
+};
 
 UCLASS()
 class MYPROJECT4_API ASpartanBase : public ACharacter
@@ -23,6 +37,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void FocusCamera(const float& DeltaTime);
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -42,6 +58,14 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnThrowGrape();
 
+	UFUNCTION(BlueprintCallable)
+	void FocusOnActor(AActor* ActorToFocus, const float& NewFov, const float& TimeToFocus, const float& TotalTimeToFocus, const FVector& NewCameraLocation);
+
+	UFUNCTION(BlueprintCallable)
+	void RestoreFocus();
+
+	void RestorePlayerControl();
+	
 // Interactable functions
 public:
 	void StartInteraction();
@@ -62,4 +86,24 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Throw Grape")
 	TSubclassOf<AGrape> GrapeClass;
+
+	UPROPERTY(Transient)
+	FFocusActor FocusActor;
+
+	UPROPERTY(Transient)
+	TObjectPtr<USpringArmComponent> InternalCameraBoom;
+
+	UPROPERTY(Transient)
+	TObjectPtr<UCameraComponent> InternalFollowCamera;
+
+	UPROPERTY(Transient)
+	float InitialFOV = 90.f;
+
+	UPROPERTY(Transient)
+	FVector CameraBoomRelativeLocation;
+
+	UPROPERTY(Transient)
+	float CurrentFocusTime = 0.f;
+
+	FTimerHandle ResetFocusTimer;
 };
