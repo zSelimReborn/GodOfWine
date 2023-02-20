@@ -6,6 +6,7 @@
 #include "Actors/Throwable/Grape.h"
 #include "Camera/CameraComponent.h"
 #include "Components/ArrowComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -123,8 +124,9 @@ void ASpartanBase::FocusOnActor(AActor* ActorToFocus, const float& NewFov, const
 
 		InternalCameraBoom->bInheritYaw = false;
 		InternalCameraBoom->bUsePawnControlRotation = false;
-		const FLatentActionInfo ActionInfo{INDEX_NONE, INDEX_NONE, nullptr, this};
+		GetCharacterMovement()->Deactivate();
 		
+		const FLatentActionInfo ActionInfo{INDEX_NONE, INDEX_NONE, nullptr, this};
 		UKismetSystemLibrary::MoveComponentTo(InternalCameraBoom, NewCameraLocation, RotationToActor, true,
 		true, TimeToFocus, false, EMoveComponentAction::Move, ActionInfo);
 
@@ -151,6 +153,7 @@ void ASpartanBase::RestorePlayerControl()
 		InternalCameraBoom->SetRelativeLocation(CameraBoomRelativeLocation);
 		InternalCameraBoom->bUsePawnControlRotation = true;
 		InternalCameraBoom->bInheritYaw = true;
+		GetCharacterMovement()->Activate();
 	}
 }
 
