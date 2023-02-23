@@ -35,7 +35,8 @@ void ALyre::Interaction(AActor* InstigatorActor)
 			GetActorLocation(),
 			GetActorRotation(),
 			1.f,
-			PitchMultiplier
+			PitchMultiplier,
+			StartMusicTime
 		);
 
 		bHasBeenPlayed = true;

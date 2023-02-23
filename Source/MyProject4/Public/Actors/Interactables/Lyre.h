@@ -45,6 +45,9 @@ protected:
 	TObjectPtr<USoundCue> LyreMusic;
 
 	UPROPERTY(EditAnywhere, Category="Music")
+	float StartMusicTime = 0.f;
+
+	UPROPERTY(EditAnywhere, Category="Music")
 	float MinPitchMultiplier = 0.8f;
 
 	UPROPERTY(EditAnywhere, Category="Music")
