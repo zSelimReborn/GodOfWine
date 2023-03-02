@@ -71,7 +71,6 @@ void AInteractableBase::OnEnterTriggerVolume(UPrimitiveComponent* OverlappedComp
 	ASpartanBase* Character = Cast<ASpartanBase>(OtherActor);
 	if (Character)
 	{
-		EnableCustomDepth();
 		Character->SetOverlappingInteractableObject(this);
 	}
 }
@@ -87,24 +86,38 @@ void AInteractableBase::OnLeaveTriggerVolume(UPrimitiveComponent* OverlappedComp
 	ASpartanBase* Character = Cast<ASpartanBase>(OtherActor);
 	if (Character)
 	{
-		DisableCustomDepth();
 		Character->ResetOverlappingInteractableObject(this);
 	}
 }
 
 void AInteractableBase::EnableCustomDepth()
 {
-	if (MeshComponent && CanInteract())
+	if (!CanInteract())
 	{
-		MeshComponent->SetRenderCustomDepth(true);
+		return;
+	}
+
+	TArray<TObjectPtr<UMeshComponent>> MeshComponents;
+	GetComponents<UMeshComponent>(MeshComponents);
+	for (UMeshComponent* Component : MeshComponents)
+	{
+		if (Component)
+		{
+			Component->SetRenderCustomDepth(true);
+		}
 	}
 }
 
 void AInteractableBase::DisableCustomDepth()
 {
-	if (MeshComponent)
+	TArray<TObjectPtr<UMeshComponent>> MeshComponents;
+	GetComponents<UMeshComponent>(MeshComponents);
+	for (UMeshComponent* Component : MeshComponents)
 	{
-		MeshComponent->SetRenderCustomDepth(false);
+		if (Component)
+		{
+			Component->SetRenderCustomDepth(false);
+		}
 	}
 }
 
@@ -132,6 +145,8 @@ void AInteractableBase::ShowInteractWidget()
 		{
 			InteractableWidgetRef->SetInteractText(InteractWidgetString);
 		}
+
+		EnableCustomDepth();
 	}
 }
 
@@ -144,6 +159,8 @@ void AInteractableBase::HideInteractWidget()
 		{
 			InteractableWidgetRef->ResetInteractText();
 		}
+
+		DisableCustomDepth();
 	}
 }
 

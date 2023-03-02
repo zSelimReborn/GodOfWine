@@ -15,10 +15,10 @@ void AStatue::Interaction(AActor* InteractionInstigator)
 		return;	
 	}
 	
-	UE_LOG(LogTemp, Display, TEXT("AStatue::Interaction to implement."));
 	MarkAsCompleted();
 	DisableInteraction();
 	HideInteractWidget();
+	OnInteraction();
 	OnObjectiveCompleted.Broadcast(this);
 }
 
