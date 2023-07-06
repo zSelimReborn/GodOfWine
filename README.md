@@ -2,7 +2,7 @@
 
 ## Story
 
-God of Wine is a game made in Unreal for a collaborative challenge in CG Spectrum. 
+God of Wine is a game made in Unreal 5.1 for a collaborative challenge in CG Spectrum. 
 
 The goal of the challenge was to create a low-poly level of maximum 20x20x20.
 My team was formed by a programmer (me), a game designer and two modelers.
