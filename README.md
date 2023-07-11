@@ -14,6 +14,7 @@ But you don't have any grapes. The altar is missing. And you hear a song even th
 
 Try solving this mystery so you can have fun with your friends!
 
+[Showcase video](https://youtu.be/DXi3snd9ibQ)
 
 ## Code
 
@@ -57,7 +58,7 @@ AObjectiveGroup
 
 ## Credits
 
-Game designing by [**Dimitrios Elaiotriviaris**](https://github.com/Jimelo) 
+Game designing by [**Dimitrios Elaiotriviaris**](https://www.linkedin.com/in/dimitrios-elaiotriviaris-b42956137/) 
 
 Modeling by **Tanguy Chennaux** and **Dominique Alzate**
 
